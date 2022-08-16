@@ -1,0 +1,15 @@
+doctype 
+html
+    head
+        title= pageTitle
+        link(href="/style.css")
+    body 
+        h1= pageTitle
+        each val in users
+            div(class="userClass") 
+                h2 #{val.firstName} #{val.lastName}
+                h3 Age: #{val.age}
+                h3 Email: #{val.email} 
+            
+            
+            

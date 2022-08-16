@@ -19,6 +19,7 @@
   "homepage": "https://github.com/McKayH/MongoDB-usermanager#readme",
   "dependencies": {
     "express": "^4.18.1",
+    "mongoose": "^6.5.2",
     "pug": "^3.0.2"
   }
 }
