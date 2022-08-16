@@ -53,9 +53,19 @@ app.get('/users', (req, res)=>{
         res.render('users', {
             pageTitle: 'List of users',
             users: users
-        })
-    })
-})
+        });
+    });
+});
+app.get('/delete/:id', (req, res)=>{
+    console.log(req.params.id);
+    users.deleteOne({_id: req.params.id }).then(function(){
+        console.log("Data deleted"); // Success
+        res.redirect('back')
+    }).catch(function(error){
+        console.log(error); // Failure
+    });
+    
+});
 
 app.listen(port, ()=>{
     console.log('server on port ' + port);
