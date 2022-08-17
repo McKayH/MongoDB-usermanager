@@ -7,19 +7,25 @@ html
         div.nav
             a(href="/") Make New User
         h1= pageTitle
-        form(action="searching" method="post")  
+        form(action="/searching" method="post")  
             input(type="text" name="search")
             input(type="submit", value="Search")
+            br
+            input(type="radio" id="fna" value= "FirstName" name="select")
+            label(for="fna") Search By First Name
+            br
+            input(type="radio" id="lna" value= "LastName" name="select")
+            label(for="lna") Search By Last Name
         each val in users
             div.userClass 
                 h2 #{val.firstName} #{val.lastName}
                 h3 Age: #{val.age}
                 h3 Email: #{val.email}
-                div
-                    a(href="/edit/" +val._id) Edit
-                div 
-                    a(href="/delete/"+val._id) Delete
-                span ----------------------------------
+                a(href="/edit/" +val._id) Edit 
+                br
+                a(href="/delete/"+val._id) Delete
+                br
+                span ---------------------------------- 
             
             
             

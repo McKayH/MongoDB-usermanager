@@ -49,7 +49,6 @@ app.post('/user', (req, res)=>{
 });
 app.get('/users', (req, res)=>{
     users.find().limit(5).then(users =>{
-        console.log(users);
         res.render('users', {
             pageTitle: 'List of users',
             users: users
@@ -57,7 +56,6 @@ app.get('/users', (req, res)=>{
     });
 });
 app.get('/delete/:id', (req, res)=>{
-    console.log(req.params.id);
     users.deleteOne({_id: req.params.id }).then(function(){
         console.log("Data deleted"); // Success
         res.redirect('back')
@@ -72,7 +70,6 @@ app.get('/edit/:id',(req, res)=>{
             console.log(err);
         }
         else{
-            console.log(doc);
             res.render('edit', {
                 pageTitle: 'Edit User: ' + doc.firstName + ' ' + doc.lastName,
                 user: doc,
@@ -92,6 +89,28 @@ app.post('/change/:id', (req,res)=>{
         }
     });
     res.redirect('/users');
+});
+app.post('/searching', (req, res)=>{
+    if(req.body.select === 'FirstName'){
+        users.find({firstName: req.body.search}, (err, docs)=>{
+            if (err){
+                console.log(err);
+            }
+            else{
+                console.log(docs);
+                res.render('results', {
+                    pageTitle: 'Search Results',
+                    results: docs,
+                });
+            }
+        });
+    }
+    else if(req.body.select === 'LastName'){
+
+    }
+    else{
+        console.log('ERROR: did not select search params');
+    }
 });
 
 app.listen(port, ()=>{
