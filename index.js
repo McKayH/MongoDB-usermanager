@@ -91,6 +91,7 @@ app.post('/change/:id', (req,res)=>{
     res.redirect('/users');
 });
 app.post('/searching', (req, res)=>{
+    console.log(req.body.select);
     if(req.body.select === 'FirstName'){
         users.find({firstName: req.body.search}, (err, docs)=>{
             if (err){
@@ -106,7 +107,7 @@ app.post('/searching', (req, res)=>{
         });
     }
     else if(req.body.select === 'LastName'){
-        users.find({firstName: req.body.search}, (err, docs)=>{
+        users.find({lastName: req.body.search}, (err, docs)=>{
             if (err){
                 console.log(err);
             }
