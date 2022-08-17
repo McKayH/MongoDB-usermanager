@@ -106,7 +106,18 @@ app.post('/searching', (req, res)=>{
         });
     }
     else if(req.body.select === 'LastName'){
-
+        users.find({firstName: req.body.search}, (err, docs)=>{
+            if (err){
+                console.log(err);
+            }
+            else{
+                console.log(docs);
+                res.render('results', {
+                    pageTitle: 'Search Results',
+                    results: docs,
+                });
+            }
+        });
     }
     else{
         console.log('ERROR: did not select search params');
