@@ -66,6 +66,33 @@ app.get('/delete/:id', (req, res)=>{
     });
     
 });
+app.get('/edit/:id',(req, res)=>{
+    users.findById(req.params.id, (err, doc)=>{
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log(doc);
+            res.render('edit', {
+                pageTitle: 'Edit User: ' + doc.firstName + ' ' + doc.lastName,
+                user: doc,
+            });
+        }
+    });
+});
+app.post('/change/:id', (req,res)=>{
+    users.findByIdAndUpdate(req.params.id, {
+        firstName: req.body.fname,
+        lastName: req.body.lname,
+        age: req.body.age,
+        email: req.body.email,
+    }, (err, data)=>{
+        if (err) {
+            console.log(err);
+        }
+    });
+    res.redirect('/users');
+});
 
 app.listen(port, ()=>{
     console.log('server on port ' + port);
