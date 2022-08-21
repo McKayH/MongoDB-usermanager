@@ -8,6 +8,8 @@ app.use(express.urlencoded({extended: false}))
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 const mongoose = require('mongoose');
+const { redirect } = require('express/lib/response');
+const { listenerCount } = require('process');
 const dbConectString = 'mongodb://localhost/usermanager';
 
 mongoose.connect(dbConectString);
@@ -122,6 +124,40 @@ app.post('/searching', (req, res)=>{
     }
     else{
         console.log('ERROR: did not select search params');
+    }
+});
+app.post('/sort', (req,res)=>{
+    if(req.body.sortSelect === 'sFName' && req.body.sortOrd === 'ASC') {
+        users.find({}).sort('firstName').exec((err,docs)=>{
+            res.render('users', {
+                pageTitle: 'Ordered list Z>a',
+                users: docs,
+            });
+        });
+    }
+    else if(req.body.sortSelect === 'sFName' && req.body.sortOrd === 'DSC') {
+        users.find({}).sort({firstName: 'desc'}).exec((err,docs)=>{
+            res.render('users', {
+                pageTitle: 'Ordered list Z>a',
+                users: docs,
+            });
+        });
+    }
+    else if(req.body.sortSelect === 'sLName' && req.body.sortOrd === 'ASC') {
+        users.find({}).sort('lastName').exec((err,docs)=>{
+            res.render('users', {
+                pageTitle: 'Ordered list Z>a',
+                users: docs,
+            });
+        });
+    }
+    else if(req.body.sortSelect === 'sLName' && req.body.sortOrd === 'DSC') {
+        users.find({}).sort({lastName: 'desc'}).exec((err,docs)=>{
+            res.render('users', {
+                pageTitle: 'Ordered list Z>a',
+                users: docs,
+            });
+        });
     }
 });
 

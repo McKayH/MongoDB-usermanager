@@ -6,7 +6,8 @@ html
     body 
         div.nav
             a(href="/") Make New User
-        h1= pageTitle
+            br
+            br
         form(action="/searching" method="post")  
             input(type="text" name="search")
             input(type="submit", value="Search")
@@ -16,6 +17,22 @@ html
             br
             input(type="radio" id="lna" value= "LastName" name="select")
             label(for="lna") Search By Last Name
+        span -------------------------------------------
+        form(action="/sort" method="post")
+            input(type="radio" id="Sfna" value= "sFName" name="sortSelect")
+            label(for="Sfna") Sort By First Name ||
+            input(type="radio" id="Slna" value= "sLName" name="sortSelect")
+            label(for="Slna") Sort By Last Name
+            br
+            br
+            input(type="radio" id="asc" value= "ASC" name="sortOrd")
+            label(for="asc") Ascending order
+            br
+            input(type="radio" id="dsc" value= "DSC" name="sortOrd")
+            label(for="dsc") Descending order
+            br
+            input(type="submit" value="Sort")
+        h1= pageTitle
         each val in users
             div.userClass 
                 h2 #{val.firstName} #{val.lastName}
